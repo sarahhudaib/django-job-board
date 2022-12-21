@@ -1,4 +1,4 @@
-Job : 
+### Job : 
     - title
     - location
     - job type
@@ -14,7 +14,7 @@ Job :
     - post job
 
 
-Blog : 
+### Blog : 
     - title
     - description 
     - created_at
@@ -26,8 +26,8 @@ Blog :
     - comment
     - recent posts
 
-contact
-home
+### contact
+### home
 
 
-login 
+### login 
