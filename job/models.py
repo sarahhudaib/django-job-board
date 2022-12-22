@@ -12,6 +12,10 @@ JOB_TYPE = (
     ('Part Time','Part Time'),
 )
 
+def image_upload(instance,filename):
+    imagename , extension = filename.split(".")
+    return "jobs/%s.%s"%(instance.id,extension)
+
 #https://docs.djangoproject.com/en/4.1/ref/models/fields/
 class Job(models.Model):  
     title        = models.CharField(max_length=100)  
@@ -21,6 +25,7 @@ class Job(models.Model):
     vacancy      = models.IntegerField(default=1)
     salary       = models.IntegerField(default=0)
     experience   = models.IntegerField(default=1) 
+    image = models.ImageField(upload_to= image_upload)
     
     # Relations
     category     = models.ForeignKey('Category',on_delete=models.CASCADE, default=1) # one to many
