@@ -1,13 +1,23 @@
 from django.shortcuts import render
 from .models import Job
 
+# https://docs.djangoproject.com/en/4.1/topics/pagination/
+from django.core.paginator import Paginator
+
+
 # Model Queryset in Django
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/
 
 # Will Retrieve all jobs 
 def job_list(request):
     job_list = Job.objects.all()
-    context = {'jobs': job_list} # template name
+    
+    # Pagination
+    paginator = Paginator(job_list, 3) # Show 3 contacts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {'jobs': page_obj} # template name
     return render(request, 'job/job_list.html', context)
 
 # Will Retrieve one jobs details

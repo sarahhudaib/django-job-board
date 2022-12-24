@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('jobs/', include('job.urls')), # path('path_name/', include('app_name.urls'))
+    path('jobs/', include('job.urls', namespace='jobs')), # path('path_name/', include('app_name.urls'))
 ]
 
 # for adding the static files in the frontend to the settings
