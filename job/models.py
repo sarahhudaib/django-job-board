@@ -51,3 +51,24 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+# Apply form   
+class Apply(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    website = models.URLField()
+    cv = models.FileField(upload_to='apply/')
+    cover_letter = models.TextField(max_length=100000)
+    created_at = models.DateTimeField(auto_now=True)
+
+    # Relations
+    job = models.ForeignKey(Job, related_name='apply_job', on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.name
+
+'''
+- Added Apply table
+- 
+'''
