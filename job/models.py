@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+
 
 '''
  django model field : 
@@ -27,9 +29,19 @@ class Job(models.Model):
     experience   = models.IntegerField(default=1) 
     image = models.ImageField(upload_to= image_upload)
     
+    # https://docs.djangoproject.com/en/4.1/ref/forms/fields/ 
+    # short label for something, containing only letters, numbers, underscores or hyphens. They’re generally used in URLs.
+    slug = models.SlugField(blank=True, null=True) # https://www.jobboard.com/add-the-slug-field-inside-django-model/
+    
     # Relations
     category     = models.ForeignKey('Category',on_delete=models.CASCADE, default=1) # one to many
     
+    
+    def save(self,*args, **kwargs):
+        self.slug = slugify(self.title) # slugify will take the title and replace the space with underscore (job-board-software-engineer)
+        super(Job,self).save(*args, **kwargs)
+        
+        
     def __str__(self):
         return self.title
     
