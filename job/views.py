@@ -4,6 +4,8 @@ from .models import Job
 # https://docs.djangoproject.com/en/4.1/topics/pagination/
 from django.core.paginator import Paginator
 
+# Apply Form
+from .form import ApplyForm 
 
 # Model Queryset in Django
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/
@@ -21,8 +23,22 @@ def job_list(request):
     return render(request, 'job/job_list.html', context)
 
 # Will Retrieve one jobs details
-def job_detail(request, id):
-    job_detail = Job.objects.get(id=id) # will retrieve on job
+def job_detail(request, slug):
+    job_detail = Job.objects.get(slug=slug) # will retrieve on job
     # job_detail = Job.object.filter() # will retrieve on job from a list according to some filtration
-    context = {'job': job_detail}
+    
+    # Django bootstrap:  https://django-bootstrap4.readthedocs.io/en/latest/quickstart.html
+    if request.method=='POST':
+        form = ApplyForm(request.POST, request.FILES)
+        if form.is_valid():
+                    myform = form.save(commit=False)
+                    myform.job = job_detail
+                    myform.save()
+                    print('Done')
+
+    else:
+        form = ApplyForm()
+
+
+    context = {'job' : job_detail , 'form' : form}
     return render(request,'job/job_detail.html', context)
