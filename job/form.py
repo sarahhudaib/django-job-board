@@ -7,6 +7,7 @@ class ApplyForm(forms.ModelForm):
         model = Apply
         fields = ['name' ,'email','website','cv','cover_letter']
 
+
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
