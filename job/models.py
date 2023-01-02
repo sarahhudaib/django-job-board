@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django.contrib.auth.models import User
 
 '''
  django model field : 
@@ -35,7 +35,7 @@ class Job(models.Model):
     
     # Relations
     category     = models.ForeignKey('Category',on_delete=models.CASCADE, default=1) # one to many
-    
+    owner = models.ForeignKey(User, related_name='job_owner', on_delete=models.CASCADE)
     
     def save(self,*args, **kwargs):
         self.slug = slugify(self.title) # slugify will take the title and replace the space with underscore (job-board-software-engineer)
