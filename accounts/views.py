@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import SignupForm
+from .forms import SignupForm, UserForm, ProfileForm
 from django.contrib.auth import authenticate, login
 from .models import Profile
 # from .models import Profile, UserForm , ProfileForm
@@ -60,4 +60,27 @@ def profile(request):
 
 
 def profile_edit(request):
-    return render(request,'accounts/profile_edit.html',{})
+    # git from the database
+    profile = Profile.objects.get(user=request.user)
+
+    # Save the form
+    if request.method=='POST':
+        userform = UserForm(request.POST,instance=request.user)
+        profileform = ProfileForm(request.POST,request.FILES,instance=profile ) # request.files to be able to update the image
+        
+        # check on validation for the 2 forms
+        if userform.is_valid() and profileform.is_valid():
+            userform.save()
+            myprofile = profileform.save(commit=False) # i didn't save because i need first to send it to the user 
+            myprofile.user = request.user # send data to the user then save
+            myprofile.save() 
+            
+            # redirect to the accounts/profile
+            return redirect(reverse('accounts:profile'))
+    
+    # Show the forms userform & profileform
+    else :
+        userform = UserForm(instance=request.user)
+        profileform = ProfileForm(instance=profile)
+
+    return render(request,'accounts/profile_edit.html',{'userform':userform , 'profileform':profileform})
