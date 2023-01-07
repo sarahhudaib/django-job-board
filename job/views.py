@@ -16,7 +16,7 @@ def job_list(request):
     job_list = Job.objects.all()
     
     # Pagination
-    paginator = Paginator(job_list, 3) # Show 3 contacts per page.
+    paginator = Paginator(job_list, 5) # Show 3 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
