@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from .forms import SignupForm
 from django.contrib.auth import authenticate, login
 from .models import Profile
+# from .models import Profile, UserForm , ProfileForm
+
 from django.urls import reverse
 
 
@@ -45,3 +47,17 @@ def signup(request):
         
     # 8. render the html page
     return render(request,'registration/signup.html',{'form':form})
+
+
+'''
+1. It retrieves the Profile object for the current user by calling the get method on the Profile model's objects attribute and passing it the user field of the request object.
+2. It renders the profile.html template and passes the Profile object as the profile variable to the template.
+'''
+def profile(request):
+    profile = Profile.objects.get(user=request.user)
+    return render(request,'accounts/profile.html',{'profile': profile})
+
+
+
+def profile_edit(request):
+    return render(request,'accounts/profile_edit.html',{})
