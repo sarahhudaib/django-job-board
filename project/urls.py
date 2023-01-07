@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     # always the accounts before the admin because the admin will overwrite the accounts if its not in the beginning
     path('accounts/', include('django.contrib.auth.urls')), # a build in feature from django
+    path('accounts/', include('accounts.urls',namespace='accounts')),
     path('admin/', admin.site.urls), 
     path('jobs/', include('job.urls', namespace='jobs')), # path('path_name/', include('app_name.urls'))
 ]
