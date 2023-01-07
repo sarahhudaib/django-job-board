@@ -5,6 +5,9 @@ from django.urls import reverse
 # https://docs.djangoproject.com/en/4.1/topics/pagination/
 from django.core.paginator import Paginator
 
+# decorator login required
+from django.contrib.auth.decorators import login_required
+
 # Apply Form
 from .form import ApplyForm , JobForm
 
@@ -44,6 +47,8 @@ def job_detail(request, slug):
     context = {'job' : job_detail , 'form' : form}
     return render(request,'job/job_detail.html', context)
 
+
+@login_required
 def add_job(request):
     if request.method=='POST':
         pass
