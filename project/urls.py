@@ -24,7 +24,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls',namespace='accounts')),
     path('admin/', admin.site.urls), 
     path('jobs/', include('job.urls', namespace='jobs')), # path('path_name/', include('app_name.urls'))
-]
+    path('contact-us/', include('contact.urls',namespace='contact')),
+    ]
 
 # for adding the static files in the frontend to the settings
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

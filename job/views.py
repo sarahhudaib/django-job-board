@@ -2,11 +2,18 @@ from django.shortcuts import render
 from .models import Job
 from django.shortcuts import redirect, render
 from django.urls import reverse
+
 # https://docs.djangoproject.com/en/4.1/topics/pagination/
 from django.core.paginator import Paginator
 
+# decorator login required
+from django.contrib.auth.decorators import login_required
+
 # Apply Form
 from .form import ApplyForm , JobForm
+
+# Filtration
+from .filters import JobFilter
 
 # Model Queryset in Django
 # https://docs.djangoproject.com/en/4.1/ref/models/querysets/
@@ -15,12 +22,16 @@ from .form import ApplyForm , JobForm
 def job_list(request):
     job_list = Job.objects.all()
     
+    # Filters
+    myfilter = JobFilter(request.GET, queryset=job_list)
+    job_list = myfilter.qs # qs == queryset
+    
     # Pagination
     paginator = Paginator(job_list, 5) # Show 3 contacts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    context = {'jobs': page_obj} # template name
+    context = {'jobs': page_obj, 'myfilter' : myfilter} # templates name
     return render(request, 'job/job_list.html', context)
 
 # Will Retrieve one jobs details
@@ -44,6 +55,8 @@ def job_detail(request, slug):
     context = {'job' : job_detail , 'form' : form}
     return render(request,'job/job_detail.html', context)
 
+
+@login_required
 def add_job(request):
     if request.method=='POST':
         pass
