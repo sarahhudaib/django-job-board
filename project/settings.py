@@ -52,8 +52,10 @@ INSTALLED_APPS = [
     'home',
     'job',
     
+    # 3rd party libraries
     'bootstrap4',
     'django_filters',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
