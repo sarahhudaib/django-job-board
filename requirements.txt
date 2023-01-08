@@ -4,10 +4,14 @@ beautifulsoup4==4.11.1
 Django==4.1.4
 django-bootstrap4==22.3
 django-filter==22.1
+django-leaflet==0.28.3
 djangorestframework==3.14.0
 importlib-metadata==6.0.0
 Markdown==3.4.1
 Pillow==9.3.0
+postgres==4.0
+psycopg2-binary==2.9.5
+psycopg2-pool==1.1
 python-dotenv==0.21.0
 pytz==2022.7
 soupsieve==2.3.2.post1

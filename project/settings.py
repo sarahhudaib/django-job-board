@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'home',
     'job',
     
-    # 3rd party libraries
+    # third-party apps
     'bootstrap4',
     'django_filters',
     'rest_framework',
