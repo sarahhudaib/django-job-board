@@ -25,6 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls), 
     path('jobs/', include('job.urls', namespace='jobs')), # path('path_name/', include('app_name.urls'))
     path('contact-us/', include('contact.urls',namespace='contact')),
+    
+    # Django Rest Framework
+    path('api-auth/', include('rest_framework.urls'))
     ]
 
 # for adding the static files in the frontend to the settings
