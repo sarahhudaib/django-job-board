@@ -67,8 +67,3 @@ class Apply(models.Model):
     
     def __str__(self):
         return self.name
-
-'''
-- Added Apply table
-- 
-'''
